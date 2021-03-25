@@ -50,4 +50,45 @@ public class OrderTest {
         String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         assertEquals(expected, actual.strip());
     }
+
+    @Test
+    void shouldWriteWrongName() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[type='text']")).sendKeys("Ivanov Petr");
+        driver.findElement(By.cssSelector(".button")).click();
+        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
+        String actual = driver.findElement(By.cssSelector(".input__sub")).getText();
+        assertEquals(expected, actual.strip());
+    }
+
+    @Test
+    void shouldWriteWrongNumber() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Петр");
+        driver.findElement(By.cssSelector("[type='tel']")).sendKeys("81231234567");
+        driver.findElement(By.cssSelector(".button")).click();
+        String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText();
+        assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    void shouldFieldsEmpty() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector(".button")).click();
+        String expected = "Поле обязательно для заполнения";
+        String actual = driver.findElement(By.cssSelector(".input__sub")).getText();
+        assertEquals(expected, actual.trim());
+    }
+
+    @Test
+    void shouldCheckboxEmpty() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Петр");
+        driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+71231234567");
+        driver.findElement(By.cssSelector(".button")).click();
+        String expected = "Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй";
+        String actual = driver.findElement(By.cssSelector(".checkbox__text")).getText();
+        assertEquals(expected, actual.strip());
+    }
 }
