@@ -39,7 +39,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldSubmitRequest() throws InterruptedException {
+    void shouldSubmitRequest() {
         driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов Петр");
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+71231234567");
