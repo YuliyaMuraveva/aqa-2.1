@@ -77,7 +77,7 @@ public class OrderTest {
         driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector(".button")).click();
         String expected = "Поле обязательно для заполнения";
-        String actual = driver.findElement(By.cssSelector(".input__sub")).getText();
+        String actual = driver.findElement(By.cssSelector(".input_invalid .input__sub")).getText();
         assertEquals(expected, actual.trim());
     }
 
@@ -88,7 +88,7 @@ public class OrderTest {
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+71231234567");
         driver.findElement(By.cssSelector(".button")).click();
         String expected = "Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй";
-        String actual = driver.findElement(By.cssSelector(".checkbox__text")).getText();
+        String actual = driver.findElement(By.cssSelector(".input_invalid .checkbox__text")).getText();
         assertEquals(expected, actual.strip());
     }
 }
